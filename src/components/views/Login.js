@@ -37,13 +37,14 @@ FormField.propTypes = {
 
 const Login = props => {
   const history = useHistory();
-  const [name, setName] = useState(null);
+  const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
+
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, name});
-      const response = await api.post('/users', requestBody);
+      const requestBody = JSON.stringify({username, name: password});
+      const response = await api.post('/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
@@ -51,10 +52,19 @@ const Login = props => {
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
+      // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong during the registration: \n${handleError(error)}`);
+    }
+  };
+
+  const doRegister = async () => {
+    try {
+      // registration --> navigate to the route /registration in the AppRouter
+      history.push(`/registration`);
+    } catch (error) {
+      alert(`Something went wrong during the registration: \n${handleError(error)}`);
     }
   };
 
@@ -62,26 +72,35 @@ const Login = props => {
     <BaseContainer>
       <div className="login container">
         <div className="login form">
+          <h3>Login</h3>
           <FormField
             label="Username"
             value={username}
             onChange={un => setUsername(un)}
           />
           <FormField
-            label="Name"
-            value={name}
-            onChange={n => setName(n)}
+            label="Password"
+            value={password}
+            onChange={n => setPassword(n)}
           />
           <div className="login button-container">
             <Button
-              disabled={!username || !name}
+              disabled={!username || !password}
               width="100%"
               onClick={() => doLogin()}
             >
               Login
             </Button>
+            <div className="registration button-container">
+              <Button
+                  width="100%"
+                  onClick={() => doRegister()}
+              >
+                Not registered? Sign up!
+              </Button>
           </div>
         </div>
+      </div>
       </div>
     </BaseContainer>
   );
