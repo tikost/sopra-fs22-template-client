@@ -5,6 +5,8 @@ import {LoginGuard} from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
 import {RegisterGuard} from "components/routing/routeProtectors/RegisterGuard";
 import Registration from "components/views/Registration";
+import {InspectUserGuard} from "components/routing/routeProtectors/InspectUserGuard";
+import InspectUser from "components/views/InspectUser";
 
 /**
  * Main router of your application.
@@ -40,9 +42,16 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-      <Route path="/inspectUser">
-        <Redirect to="/login"/>
-      </Route>
+        <Route exact path="/users/:userId">
+          <InspectUserGuard>
+            <InspectUser/>
+          </InspectUserGuard>
+        </Route>
+        <Route path="/users/:userId">
+          <InspectUserGuard>
+            <InspectUser/>
+          </InspectUserGuard>
+        </Route>
       </Switch>
     </BrowserRouter>
   );
