@@ -32,6 +32,9 @@ const Game = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    let id = localStorage.getItem("loggedInUser");
+    localStorage.removeItem("loggedInUser");
+    const response = api.get('/login'+id);
     history.push('/login');
   }
 
@@ -77,36 +80,35 @@ const Game = () => {
   }, []);
 
   let content = <Spinner/>;
+    if (users) {
+        content = (
+            <div>
+                <ul>
+                    {users.map(user => (
+                        <li key={user.id}>
+                            <button className="user-button"
+                                    onClick={() => inspectUser(user)}>
+                                <Player user={user}/>
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <Button
+                    width="100%"
+                    onClick={() => logout()}
+                >
+                    Logout
+                </Button>
+            </div>
+        );
+    }
 
-  if (users) {
-    content = (
-      <div className="game">
-        <ul className="game user-list">
-          {users.map(user => (
-              <Button
-                  className="user-button"
-                  width="60%"
-                  onClick={() => inspectUser(user)}
-              >
-                  <Player user={user} key={user.id}/>
-              </Button>
-          ))}
-        </ul>
-        <Button
-          width="100%"
-          onClick={() => logout()}
-        >
-          Logout
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <BaseContainer className="game container">
       <h2>Happy Coding!</h2>
       <p className="game paragraph">
-        Get all users from secure endpoint:
+        Click on a user to see more details:
       </p>
       {content}
     </BaseContainer>
