@@ -42,7 +42,7 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route exact path="/users/:userId">
+        <Route path="/users/:userId">
           <InspectUserGuard>
             <InspectUser/>
           </InspectUserGuard>

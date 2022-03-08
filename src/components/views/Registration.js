@@ -43,7 +43,7 @@ const Registration = props => {
     const doRegistration = async () => {
         try {
             let creationDate = new Date(); // if this does not work while testing try instant()
-            const requestBody = JSON.stringify({username, name: password, creationDate});
+            const requestBody = JSON.stringify({username, password: password, creationDate});
             const response = await api.post('/users', requestBody);
 
             // Get the returned user and update a new object.

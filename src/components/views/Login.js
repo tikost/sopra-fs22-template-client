@@ -43,7 +43,7 @@ const Login = props => {
 
   const doLogin = async () => {
     try {
-      const requestBody = JSON.stringify({username, name: password});
+      const requestBody = JSON.stringify({username, password: password});
       const response = await api.post('/login', requestBody);
 
       // Get the returned user and update a new object.
@@ -56,7 +56,8 @@ const Login = props => {
       // Registration successfully worked --> navigate to the route /game in the GameRouter
       history.push(`/game`);
     } catch (error) {
-      alert(`Something went wrong during the registration: \n${handleError(error)}`);
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      history.push(`/registration`);
     }
   };
 
@@ -92,7 +93,7 @@ const Login = props => {
             >
               Login
             </Button>
-            <div className="registration button-container">
+            <div className="registration primary-button">
               <Button
                   width="100%"
                   onClick={() => doRegister()}
