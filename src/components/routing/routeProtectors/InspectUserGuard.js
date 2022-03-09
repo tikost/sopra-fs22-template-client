@@ -1,16 +1,23 @@
-import {Redirect} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import PropTypes from "prop-types";
+import Game from "../../views/Game";
+import InspectUser from "../../views/InspectUser";
 
 /**
  *
  * Another way to export directly your functional component.
  */
 export const InspectUserGuard = props => {
-    if (!localStorage.getItem("token")) {
-        return props.children;
-    }
-    // if user is already logged in, redirects to the main /app
-    return <Redirect to="/inspectUser"/>;
+    return (
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+            <Route exact path={`${props.base}/${this.props.user.id}`}>
+                <InspectUser/>
+            </Route>
+            <Route exact path={`${props.base}`}>
+                <Redirect to={`${props.base}/${this.props.user.id}`}/>
+            </Route>
+        </div>
+    );
 };
 
 InspectUserGuard.propTypes = {

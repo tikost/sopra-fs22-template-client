@@ -2,15 +2,16 @@ import {useEffect, useState} from 'react';
 import {api, handleError} from 'helpers/api';
 import {Spinner} from 'components/ui/Spinner';
 import {Button} from 'components/ui/Button';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
+import User from "../../models/User";
+import {findRenderedComponentWithType} from "react-dom/test-utils";
 
-const Player = ({user}) => (
+const Player = ({user}) => ( // I removed <div className="player password">{user.password}</div> because the password was visible
   <div className="player container">
     <div className="player username">{user.username}</div>
-    <div className="player password">{user.password}</div>
     <div className="player id">id: {user.id}</div>
   </div>
 );
@@ -39,7 +40,8 @@ const Game = () => {
   }
 
   const inspectUser = (user) => {
-        history.push(`/inspectUser/${user.id}`);
+      history.push(`/users/${user.id}`);
+      console.log("test")
   }
 
   // the effect hook can be used to react to change in your component.
@@ -82,13 +84,13 @@ const Game = () => {
   let content = <Spinner/>;
     if (users) {
         content = (
-            <div>
-                <ul>
+            <div className="game">
+                <ul className="game user-list">
                     {users.map(user => (
-                        <li key={user.id}>
+                        <li>
                             <button className="user-button"
                                     onClick={() => inspectUser(user)}>
-                                <Player user={user}/>
+                                <Player user={user} key={user.id}/>
                             </button>
                         </li>
                     ))}

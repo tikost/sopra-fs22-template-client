@@ -32,7 +32,7 @@ const AppRouter = () => {
           </LoginGuard>
         </Route>
         <Route exact path="/">
-          <Redirect to="/game"/>
+          <Redirect to="/login"/>
         </Route>
         <Route exact path="/registration">
           <RegisterGuard>
@@ -42,12 +42,10 @@ const AppRouter = () => {
         <Route exact path="/">
           <Redirect to="/login"/>
         </Route>
-        <Route path="/users/:userId">
-          <InspectUserGuard>
+        <Route path ="/users/:userId">
             <InspectUser/>
-          </InspectUserGuard>
         </Route>
-        <Route path="/users/:userId">
+        <Route path ="/users/:userId">
           <InspectUserGuard>
             <InspectUser/>
           </InspectUserGuard>
