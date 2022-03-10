@@ -54,7 +54,10 @@ const AppRouter = () => {
         <Route path ="/changeUserDetails/:userId">
             <ChangeUserDetails/>
         </Route>
-      </Switch>
+      <Route path ="/updateUsers/:userId">
+        <ChangeUserDetails/>
+      </Route>
+    </Switch>
     </BrowserRouter>
   );
 };

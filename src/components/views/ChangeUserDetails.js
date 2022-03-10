@@ -45,7 +45,7 @@ Player.propTypes = {
 };
 
 
-const ChangeUserDetails = () => {
+const ChangeUserDetails = props => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
     const [user, setUser] = useState(null);
@@ -56,21 +56,20 @@ const ChangeUserDetails = () => {
     const confirm = async () => {
         let item = {username, birthday}
         console.warn("item", item)
+            try {
+                const requestBody = JSON.stringify({username, birthday});
+                console.log("hello-test")
+                const response = await api.put('/updateUser/' + userId, requestBody);
+                console.log("hello")
 
-        try {
+                // Get the returned user and update a new object.
+                const user = new User(response.data);
+                history.push(`/game`);
 
-            const requestBody = JSON.stringify({username, birthday});
-            const response = await api.put('/changeUsernameCheck/'+userId, requestBody);
-
-            // Get the returned user and update a new object.
-            const user = new User(response.data);
-
-            history.push(`/game`);
-        } catch (error) {
-            alert(`Something went wrong during the change attempt: \n${handleError(error)}`);
+            } catch (error) {
+                alert(`Something went wrong during the change attempt: \n${handleError(error)}`);
+            }
         }
-
-    }
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -102,8 +101,10 @@ const ChangeUserDetails = () => {
             }
         }
 
+
         fetchData();
     }, []);
+
 
 
     let content = <Spinner/>;
