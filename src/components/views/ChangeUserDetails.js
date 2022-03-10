@@ -6,6 +6,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/InspectUser.scss";
+import User from "../../models/User";
 
 
 
@@ -13,8 +14,6 @@ const Player = ({user}) => (
     <div className="player container">
         <div className="player id">id: {user.id}</div>
         <div className="player username">{user.username}</div>
-        <div className="creation date">{user.creationDate}</div>
-        <div className="status">{user.status}</div>
         <div className="birthday">{user.birthday}</div>
     </div>
 );
@@ -54,10 +53,23 @@ const ChangeUserDetails = () => {
     const [birthday, setBirthday] = useState(null);
     let {userId} = useParams(); // get current parameters of clicked user
 
-    const confirm = (props) => {
-        localStorage.setItem(props.username); // save changed items
-        localStorage.setItem(props.birthday)
-        history.push(`/game`);
+    const confirm = async () => {
+        let item = {username, birthday}
+        console.warn("item", item)
+
+        try {
+
+            const requestBody = JSON.stringify({username, birthday});
+            const response = await api.put('/changeUsernameCheck/'+userId, requestBody);
+
+            // Get the returned user and update a new object.
+            const user = new User(response.data);
+
+            history.push(`/game`);
+        } catch (error) {
+            alert(`Something went wrong during the change attempt: \n${handleError(error)}`);
+        }
+
     }
 
     useEffect(() => {
@@ -112,11 +124,11 @@ const ChangeUserDetails = () => {
                     onChange={b => setBirthday(b)}
                 />
 
-                <p> Please then confirm your changes.</p>
+                <p> Please confirm your changes.</p>
 
                 <Button
                     width="100%"
-                    onClick={() => history.push(`/game`)}
+                    onClick={() => confirm()}
                 >
                     Confirm changes
                 </Button>
@@ -125,7 +137,7 @@ const ChangeUserDetails = () => {
                     width="100%"
                     onClick={() => history.push(`/users/${user.map(itm => itm.id)}`)}
                 >
-                    Back to user data overview
+                    Cancel
                 </Button>
             </div>
         );
@@ -134,6 +146,7 @@ const ChangeUserDetails = () => {
     return (
         <BaseContainer className="user-container">
             <h2>Happy Coding!</h2>
+
             <p className="game paragraph">
                 You may change your username and input a birthday.
                 Please then confirm your changes.
