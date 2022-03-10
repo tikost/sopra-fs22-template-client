@@ -7,6 +7,7 @@ import {RegisterGuard} from "components/routing/routeProtectors/RegisterGuard";
 import Registration from "components/views/Registration";
 import {InspectUserGuard} from "components/routing/routeProtectors/InspectUserGuard";
 import InspectUser from "components/views/InspectUser";
+import ChangeUserDetails from "components/views/ChangeUserDetails";
 
 /**
  * Main router of your application.
@@ -49,6 +50,9 @@ const AppRouter = () => {
           <InspectUserGuard>
             <InspectUser/>
           </InspectUserGuard>
+        </Route>
+        <Route path ="/changeUserDetails/:userId">
+            <ChangeUserDetails/>
         </Route>
       </Switch>
     </BrowserRouter>

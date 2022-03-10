@@ -27,6 +27,7 @@ const FormField = props => {
             </label>
             <input
                 className="login input"
+                placeholder="enter here.."
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
             />
@@ -45,7 +46,7 @@ Player.propTypes = {
 };
 
 
-const InspectUser = () => {
+const ChangeUserDetails = () => {
     // use react-router-dom's hook to access the history
     const history = useHistory();
     const [user, setUser] = useState(null);
@@ -101,39 +102,30 @@ const InspectUser = () => {
 
                 <FormField
                     label="username"
-                    value={user.map(itm => itm.username)}
+                    value={username}
                     onChange={un => setUsername(un)}
-                    />
-
-                <FormField
-                    label="online"
-                    value={user.map(itm => itm.status)}
-                />
-
-                <FormField
-                    label="creation date"
-                    value={user.map(itm => itm.creationDate)}
                 />
 
                 <FormField
                     label="birthday (optional)"
-                    value={user.map(itm => itm.birthday)}
+                    value={birthday}
                     onChange={b => setBirthday(b)}
                 />
 
-                <p> You may change your username and input a birthday.</p>
+                <p> Please then confirm your changes.</p>
 
                 <Button
                     width="100%"
-                    onClick={() => history.push(`/changeUserDetails/${user.map(itm => itm.id)}`)}>
-                    Edit
+                    onClick={() => history.push(`/game`)}
+                >
+                    Confirm changes
                 </Button>
                 &nbsp;
                 <Button
                     width="100%"
-                    onClick={() => history.push('/game')}
+                    onClick={() => history.push(`/users/${user.map(itm => itm.id)}`)}
                 >
-                    Back to user overview
+                    Back to user data overview
                 </Button>
             </div>
         );
@@ -143,11 +135,12 @@ const InspectUser = () => {
         <BaseContainer className="user-container">
             <h2>Happy Coding!</h2>
             <p className="game paragraph">
-                User data overview:
+                You may change your username and input a birthday.
+                Please then confirm your changes.
             </p>
             {content}
         </BaseContainer>
     );
 }
 
-export default InspectUser;
+export default ChangeUserDetails;
