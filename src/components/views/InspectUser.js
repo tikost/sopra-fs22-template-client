@@ -53,11 +53,6 @@ const InspectUser = () => {
     const [birthday, setBirthday] = useState(null);
     let {userId} = useParams(); // get current parameters of clicked user
 
-    const confirm = (props) => {
-        localStorage.setItem(props.username); // save changed items
-        localStorage.setItem(props.birthday)
-        history.push(`/game`);
-    }
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -124,6 +119,7 @@ const InspectUser = () => {
                 <p> You may change your username and input a birthday.</p>
 
                 <Button
+                    disabled={user.map(itm => itm.status) === false}
                     width="100%"
                     onClick={() => history.push(`/changeUserDetails/${user.map(itm => itm.id)}`)}>
                     Edit

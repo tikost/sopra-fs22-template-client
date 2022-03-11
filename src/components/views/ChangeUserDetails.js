@@ -58,13 +58,12 @@ const ChangeUserDetails = props => {
         console.warn("item", item)
             try {
                 const requestBody = JSON.stringify({username, birthday});
-                console.log("hello-test")
                 const response = await api.put('/updateUser/' + userId, requestBody);
-                console.log("hello")
 
                 // Get the returned user and update a new object.
                 const user = new User(response.data);
-                history.push(`/game`);
+                history.push(`/users/${userId}`);
+
 
             } catch (error) {
                 alert(`Something went wrong during the change attempt: \n${handleError(error)}`);

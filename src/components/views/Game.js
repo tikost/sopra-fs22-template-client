@@ -6,8 +6,7 @@ import {Link, useHistory} from 'react-router-dom';
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import "styles/views/Game.scss";
-import User from "../../models/User";
-import {findRenderedComponentWithType} from "react-dom/test-utils";
+
 
 const Player = ({user}) => ( // I removed <div className="player password">{user.password}</div> because the password was visible
   <div className="player container">
@@ -35,7 +34,9 @@ const Game = () => {
     localStorage.removeItem('token');
     let id = localStorage.getItem("loggedInUser");
     localStorage.removeItem("loggedInUser");
-    const response = api.get('/login'+id);
+    const response = api.get('/logout'+id);
+
+    // const user = new User(response.data);
     history.push('/login');
   }
 
