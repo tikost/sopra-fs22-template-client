@@ -54,7 +54,7 @@ const AppRouter = () => {
         <Route path ="/changeUserDetails/:userId">
             <ChangeUserDetails/>
         </Route>
-      <Route path ="/updateUser/:userId">
+      <Route path ="/users/:userId">
         <ChangeUserDetails/>
       </Route>
         <Route path ="/logout/:userId">

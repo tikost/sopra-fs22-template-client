@@ -107,7 +107,7 @@ const InspectUser = () => {
 
                 <FormField
                     label="creation date"
-                    value={user.map(itm => itm.creationDate)}
+                    value={(user.map(itm => itm.creationDate)).toString().slice(0,10)}
                 />
 
                 <FormField
@@ -118,8 +118,9 @@ const InspectUser = () => {
 
                 <p> You may change your username and input a birthday.</p>
 
+
                 <Button
-                    disabled={user.map(itm => itm.status) === false}
+                    disabled={userId !== localStorage.getItem("loggedInUser")}
                     width="100%"
                     onClick={() => history.push(`/changeUserDetails/${user.map(itm => itm.id)}`)}>
                     Edit

@@ -34,7 +34,7 @@ const Game = () => {
     localStorage.removeItem('token');
     let id = localStorage.getItem("loggedInUser");
     localStorage.removeItem("loggedInUser");
-    const response = api.get('/logout'+id);
+    const response = api.get('/logout/'+id);
 
     // const user = new User(response.data);
     history.push('/login');
