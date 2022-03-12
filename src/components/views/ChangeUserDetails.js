@@ -57,6 +57,10 @@ const ChangeUserDetails = props => {
         let item = {username, birthday}
         console.warn("item", item)
             try {
+                // this does not work with Date!!!!!!
+                if (birthday != null) {
+                    user.birthday = new Date(Date.parse(birthday));
+                }
                 const requestBody = JSON.stringify({username, birthday});
                 const response = await api.put('/users/' + userId, requestBody);
 
