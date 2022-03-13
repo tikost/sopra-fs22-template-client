@@ -57,10 +57,6 @@ const ChangeUserDetails = props => {
         let item = {username, birthday}
         console.warn("item", item)
             try {
-                // this does not work with Date!!!!!!
-                if (birthday != null) {
-                    user.birthday = new Date(Date.parse(birthday));
-                }
                 const requestBody = JSON.stringify({username, birthday});
                 const response = await api.put('/users/' + userId, requestBody);
 
@@ -119,12 +115,15 @@ const ChangeUserDetails = props => {
                 <FormField
                     label="username"
                     value={username}
+                    placeholder={"enter a new username"}
                     onChange={un => setUsername(un)}
                 />
 
                 <FormField
-                    label="birthday (optional)"
+                    label="birthday as yyyy-mm-dd (optional)"
                     value={birthday}
+                    type={"date"}
+                    placeholder={"dd-mm-yyyy"}
                     onChange={b => setBirthday(b)}
                 />
 
@@ -148,11 +147,13 @@ const ChangeUserDetails = props => {
     }
 
     return (
-        <BaseContainer className="user-container">
+        <BaseContainer className="inspectUser container">
             <h2>Happy Coding!</h2>
-
-            <p className="game paragraph">
-                You may change your username and input a birthday.
+            <p className="inspectUser paragraph">
+                You may change your username and
+                <p>input a birthday.</p>
+            </p>
+            <p className="inspectUser paragraph">
                 Please then confirm your changes.
             </p>
             {content}

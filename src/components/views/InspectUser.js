@@ -112,11 +112,11 @@ const InspectUser = () => {
 
                 <FormField
                     label="birthday (optional)"
-                    value={user.map(itm => itm.birthday)}
+                    value={(user.map(itm => itm.birthday)).toString().slice(0,10)}
                     onChange={b => setBirthday(b)}
                 />
 
-                <p> You may change your username and input a birthday.</p>
+                <p> You may change your own username and input a birthday.</p>
 
 
                 <Button
@@ -137,7 +137,7 @@ const InspectUser = () => {
     }
 
     return (
-        <BaseContainer className="user-container">
+        <BaseContainer className="inspectUser container">
             <h2>Happy Coding!</h2>
             <p className="game paragraph">
                 User data overview:
